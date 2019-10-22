@@ -32,6 +32,8 @@ public class Calculator {
     }
 
     public String calculate() {
+        contents.add(stagingArea);
+        stagingArea = "";
 
         //calculating all add and subtract
         while (contents.contains("+") || contents.contains("-")) {

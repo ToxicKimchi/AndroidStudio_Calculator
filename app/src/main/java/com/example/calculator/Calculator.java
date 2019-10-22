@@ -13,4 +13,20 @@ public class Calculator {
     public ArrayList<String> outputDisplay() {
         return contents;
     }
+
+    public String calculate() {
+
+
+        while (contents.contains("+") || contents.contains("-")) {
+            int index = 0;
+
+            for (int i = 0; i < contents.size(); i++) {
+                if (contents.get(i) == "+" || contents.get(i) == "-") {
+                    index = i;
+                }
+            }
+
+
+        }
+    }
 }

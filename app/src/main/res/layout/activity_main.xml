@@ -298,7 +298,6 @@
         android:textColorHint="@color/colorAccent"
         android:textColorLink="@color/colorAccent"
         android:textSize="30sp"
-        android:onClick="btn_1"
         app:layout_constraintBottom_toTopOf="@+id/btn_PlusMinus"
         app:layout_constraintEnd_toStartOf="@+id/btn_2"
         app:layout_constraintHorizontal_bias="0.5"

@@ -39,10 +39,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void renderElements() {
-        ArrayList<String> contents = calculator.outputDisplay();
+        String display = calculator.outputDisplay();
         TextView txt_display = findViewById(R.id.txt_display);
 
-        txt_display.setText(contents.toString());
+        txt_display.setText(display);
     }
 
     private void buttonInput(String input) {

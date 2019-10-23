@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttons.add((Button) findViewById(R.id.btn_8));
         buttons.add((Button) findViewById(R.id.btn_9));
         buttons.add((Button) findViewById(R.id.btn_plus));
+        buttons.add((Button) findViewById(R.id.btn_minus));
         buttons.add((Button) findViewById(R.id.btn_equals));
 
         for (Button b : buttons) {
@@ -47,12 +48,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void buttonInput(String input) {
         calculator.receiveInput(input);
-
         renderElements();
     }
 
     private void equalsPressed() {
-        TextView display = (TextView) findViewById(R.id.txt_display);
+        TextView display = findViewById(R.id.txt_display);
         display.setText(calculator.calculate());
     }
 
@@ -101,6 +101,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.btn_plus:
                 buttonInput("+");
+                break;
+
+            case R.id.btn_minus:
+                buttonInput("-");
                 break;
 
             case R.id.btn_equals:

@@ -6,15 +6,16 @@ public class Calculator {
     //information specifically on storing input from user
     private ArrayList<String> contents = new ArrayList<String>();
     private String stagingArea = "";
+    private final char[] OPERATOR = new char[] { '+', '-', '/', '*' };
 
     public void receiveInput(String input) {
-        if (input.equals("+")) {
+        if (isOperator(input)) {
             if (!stagingArea.equals("")) {
                 contents.add(stagingArea);
                 stagingArea = "";
             }
 
-            contents.add("+");
+            contents.add(input);
 
         } else {
             stagingArea += input;
@@ -60,6 +61,7 @@ public class Calculator {
         return 0;
     }
 
+    //receives index in array and processes the value before and after index
     private void processAddSubtract(int index) {
         int x = Integer.parseInt(contents.get(index - 1));
         int y = Integer.parseInt(contents.get(index + 1));
@@ -67,6 +69,8 @@ public class Calculator {
 
         if (contents.get(index).equals("+")) {
             result = x + y;
+        } else {
+            result = x - y;
         }
 
         //not a typo removes the middle and last value used to calculate
@@ -75,5 +79,15 @@ public class Calculator {
 
         //replace first value with result
         contents.set(index - 1, Integer.toString(result));
+    }
+
+    private boolean isOperator(String input) {
+        for (char operator : OPERATOR) {
+            if (input.equals(Character.toString(operator))) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

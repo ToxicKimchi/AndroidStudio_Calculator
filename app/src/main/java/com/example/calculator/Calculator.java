@@ -41,7 +41,7 @@ public class Calculator {
         //calculating all add and subtract
         while (contents.contains("+") || contents.contains("-")) {
             int index = findIndex();
-            processAddSubtract(index);
+            processIndex(index);
         }
 
         return contents.get(0);
@@ -62,16 +62,8 @@ public class Calculator {
     }
 
     //receives index in array and processes the value before and after index
-    private void processAddSubtract(int index) {
-        int x = Integer.parseInt(contents.get(index - 1));
-        int y = Integer.parseInt(contents.get(index + 1));
-        int result = 0;
-
-        if (contents.get(index).equals("+")) {
-            result = x + y;
-        } else {
-            result = x - y;
-        }
+    private void processIndex(int index) {
+        int result = getResult(index);
 
         //not a typo removes the middle and last value used to calculate
         contents.remove(index);
@@ -79,6 +71,36 @@ public class Calculator {
 
         //replace first value with result
         contents.set(index - 1, Integer.toString(result));
+    }
+
+    private int getResult(int index) {
+        int x = Integer.parseInt(contents.get(index - 1));
+        int y = Integer.parseInt(contents.get(index + 1));
+        int result = 0;
+        char operator = contents.get(index).charAt(0); //only 1 char anyway index is needed
+
+        switch (operator) {
+            case '+':
+                result = x + y;
+                break;
+
+            case '-':
+                result = x - y;
+                break;
+
+            case '*':
+                result = x * y;
+                break;
+
+            case '/':
+                result = x / y;
+                break;
+
+            default:
+                throw new IllegalStateException("Unexpected value: " + operator);
+        }
+
+        return result;
     }
 
     private boolean isOperator(String input) {

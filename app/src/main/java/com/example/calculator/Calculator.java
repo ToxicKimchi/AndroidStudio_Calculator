@@ -9,9 +9,12 @@ public class Calculator {
 
     public void receiveInput(String input) {
         if (input.equals("+")) {
-            contents.add(stagingArea);
+            if (!stagingArea.equals("")) {
+                contents.add(stagingArea);
+                stagingArea = "";
+            }
+
             contents.add("+");
-            stagingArea = "";
 
         } else {
             stagingArea += input;
@@ -27,7 +30,6 @@ public class Calculator {
         }
 
         output += stagingArea;
-
         return output;
     }
 

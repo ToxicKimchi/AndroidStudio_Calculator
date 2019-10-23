@@ -38,21 +38,28 @@ public class Calculator {
         contents.add(stagingArea);
         stagingArea = "";
 
+        //calculating all multiply and divide
+        while (contents.contains("*") || contents.contains("/")) {
+            int index = findIndex(new char[] { '*', '/'});
+            processIndex(index);
+        }
+
         //calculating all add and subtract
         while (contents.contains("+") || contents.contains("-")) {
-            int index = findIndex();
+            int index = findIndex(new char[] { '+', '-'});
             processIndex(index);
         }
 
         return contents.get(0);
     }
 
-    private int findIndex() {
+    private int findIndex(char[] searchTerms) {
         //looking for first instance of + or -
         for (int i = 0; i < contents.size(); i++) {
 
             String result = contents.get(i);
-            if (result.equals("+") || result.equals("-")) {
+            if (result.equals(Character.toString(searchTerms[0]))
+                    || result.equals(Character.toString(searchTerms[1]))) {
                 return i;
             }
         }

@@ -3,22 +3,39 @@ package com.example.calculator;
 import java.util.ArrayList;
 
 public class Calculator {
-    //information specifically on storing input from user
     private ArrayList<String> contents = new ArrayList<String>();
     private String stagingArea = "";
     private final char[] OPERATOR = new char[] { '+', '-', '/', '*' };
+    private boolean resetStagingArea = false;
 
     public void receiveInput(String input) {
-        if (isOperator(input)) {
-            if (!stagingArea.equals("")) {
-                contents.add(stagingArea);
-                stagingArea = "";
+
+        if (isOperator(stagingArea)) {
+            if (isOperator(input)) {
+                stagingArea = input;
             }
 
-            contents.add(input);
+            else {
+                contents.add(stagingArea);
+                stagingArea = input;
+            }
 
-        } else {
-            stagingArea += input;
+        }
+
+        else {
+            if (isOperator(input)) {
+                commitStagingArea(input);
+                resetStagingArea = false;
+            }
+
+            else if (resetStagingArea) {
+                stagingArea = input;
+                resetStagingArea = false;
+            }
+
+            else {
+                stagingArea += input;
+            }
         }
     }
 
@@ -35,14 +52,15 @@ public class Calculator {
     }
 
     public String calculate() {
-        contents.add(stagingArea);
-        stagingArea = "";
+        if (stagingArea.equals("")) {
+            return outputDisplay();
+        }
+
+        commitStagingArea();
 
         //calculating all multiply and divide
-        while (contents.contains("*") || contents.contains("/")) {
-            int index = findIndex(new char[] { '*', '/'});
-            processIndex(index);
-        }
+        processOperators('*', '/');
+        processOperators('+','-');
 
         //calculating all add and subtract
         while (contents.contains("+") || contents.contains("-")) {
@@ -50,7 +68,20 @@ public class Calculator {
             processIndex(index);
         }
 
-        return contents.get(0);
+        resetStagingArea = true;
+        stagingArea = contents.get(0);
+        contents.remove(0);
+        return stagingArea;
+    }
+
+    private void processOperators(char x, char y) {
+
+        while (contents.contains(Character.toString(x))
+                || contents.contains(Character.toString(y))) {
+
+            int index = findIndex(new char[] { x, y});
+            processIndex(index);
+        }
     }
 
     private int findIndex(char[] searchTerms) {
@@ -65,7 +96,7 @@ public class Calculator {
         }
 
         //should never occur since we validate that a + or - exists before running
-        return 0;
+        return -1;
     }
 
     //receives index in array and processes the value before and after index
@@ -81,6 +112,10 @@ public class Calculator {
     }
 
     private int getResult(int index) {
+        if (contents.size() == index + 1) {
+            return Integer.parseInt(contents.get(index - 1));
+        }
+
         int x = Integer.parseInt(contents.get(index - 1));
         int y = Integer.parseInt(contents.get(index + 1));
         int result = 0;
@@ -118,5 +153,24 @@ public class Calculator {
         }
 
         return false;
+    }
+
+    private boolean commitStagingArea(String input) {
+        if (stagingArea.equals("")) {
+            return false;
+        }
+
+        contents.add(stagingArea);
+        stagingArea = input;
+        return true;
+    }
+
+    private boolean commitStagingArea() {
+        return commitStagingArea("");
+    }
+
+    public void clear() {
+        contents.clear();
+        stagingArea = "";
     }
 }

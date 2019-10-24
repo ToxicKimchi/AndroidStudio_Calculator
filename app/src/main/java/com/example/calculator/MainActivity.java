@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttons.add((Button) findViewById(R.id.btn_divide));
         buttons.add((Button) findViewById(R.id.btn_equals));
         buttons.add((Button) findViewById(R.id.btn_CE));
+        buttons.add((Button) findViewById(R.id.btn_back));
         buttons.add((Button) findViewById(R.id.btn_dot));
 
         for (Button b : buttons) {
@@ -127,6 +128,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.btn_CE:
                 calculator.clear();
+                renderElements();
+                break;
+
+            case R.id.btn_back:
+                calculator.backspace();
                 renderElements();
                 break;
 

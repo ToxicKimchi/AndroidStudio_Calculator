@@ -42,6 +42,12 @@ public class Calculator {
                 resetStagingArea = false;
             }
 
+            else if (number.equals(".")) {
+                if (!stagingArea.contains(".")) {
+                    stagingArea += number;
+                }
+            }
+
             else {
                 stagingArea += number;
             }
@@ -170,6 +176,12 @@ public class Calculator {
 
     private boolean commitStagingArea() {
         return commitStagingArea("");
+    }
+
+    public void backspace() {
+        if (!isOperator(stagingArea) && !stagingArea.equals("")) {
+            stagingArea = stagingArea.substring(0, stagingArea.length() - 1);
+        }
     }
 
     public void clear() {

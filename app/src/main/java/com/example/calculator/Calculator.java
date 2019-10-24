@@ -33,13 +33,10 @@ public class Calculator {
 
     private void receiveNumber(String number) {
         if (isOperator(stagingArea)) {
-            contents.add(stagingArea);
-            stagingArea = number;
-
+            commitStagingArea(number);
         }
 
         else {
-
             if (resetStagingArea) {
                 stagingArea = number;
                 resetStagingArea = false;
@@ -55,8 +52,7 @@ public class Calculator {
         String output = "";
 
         for (String item : contents) {
-            output += item;
-            output += " ";
+            output += item + " ";
         }
 
         output += stagingArea;

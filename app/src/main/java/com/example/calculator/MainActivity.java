@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             b.setOnClickListener(this);
         }
     }
+    //TODO: Add sliding menu from side for advanced operations
+    //TODO: Improve overall gui
 
     private void renderElements() {
         String display = calculator.outputDisplay();

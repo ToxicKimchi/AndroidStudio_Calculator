@@ -10,31 +10,43 @@ public class Calculator {
 
     public void receiveInput(String input) {
 
-        if (isOperator(stagingArea)) {
-            if (isOperator(input)) {
-                stagingArea = input;
-            }
+        if (isOperator(input)) {
+            receiveOperator(input);
+        }
 
-            else {
-                contents.add(stagingArea);
-                stagingArea = input;
-            }
+        else {
+            receiveNumber(input);
+        }
+    }
+
+    private void receiveOperator(String operator) {
+        if (isOperator(stagingArea)) {
+            stagingArea = operator;
+        }
+
+        else {
+            commitStagingArea(operator);
+            resetStagingArea = false;
+        }
+
+    }
+
+    private void receiveNumber(String number) {
+        if (isOperator(stagingArea)) {
+            contents.add(stagingArea);
+            stagingArea = number;
 
         }
 
         else {
-            if (isOperator(input)) {
-                commitStagingArea(input);
-                resetStagingArea = false;
-            }
 
-            else if (resetStagingArea) {
-                stagingArea = input;
+            if (resetStagingArea) {
+                stagingArea = number;
                 resetStagingArea = false;
             }
 
             else {
-                stagingArea += input;
+                stagingArea += number;
             }
         }
     }
@@ -52,7 +64,7 @@ public class Calculator {
     }
 
     public String calculate() {
-        if (stagingArea.equals("")) {
+        if (stagingArea.equals("") || isOperator(stagingArea)) {
             return outputDisplay();
         }
 
@@ -62,15 +74,10 @@ public class Calculator {
         processOperators('*', '/');
         processOperators('+','-');
 
-        //calculating all add and subtract
-        while (contents.contains("+") || contents.contains("-")) {
-            int index = findIndex(new char[] { '+', '-'});
-            processIndex(index);
-        }
-
         resetStagingArea = true;
         stagingArea = contents.get(0);
         contents.remove(0);
+
         return stagingArea;
     }
 
@@ -101,24 +108,24 @@ public class Calculator {
 
     //receives index in array and processes the value before and after index
     private void processIndex(int index) {
-        int result = getResult(index);
+        double result = getResult(index);
 
         //not a typo removes the middle and last value used to calculate
         contents.remove(index);
         contents.remove(index);
 
         //replace first value with result
-        contents.set(index - 1, Integer.toString(result));
+        contents.set(index - 1, Double.toString(result));
     }
 
-    private int getResult(int index) {
+    private double getResult(int index) {
         if (contents.size() == index + 1) {
             return Integer.parseInt(contents.get(index - 1));
         }
 
-        int x = Integer.parseInt(contents.get(index - 1));
-        int y = Integer.parseInt(contents.get(index + 1));
-        int result = 0;
+        double x = Double.parseDouble(contents.get(index - 1));
+        double y = Double.parseDouble(contents.get(index + 1));
+        double result = 0;
         char operator = contents.get(index).charAt(0); //only 1 char anyway index is needed
 
         switch (operator) {

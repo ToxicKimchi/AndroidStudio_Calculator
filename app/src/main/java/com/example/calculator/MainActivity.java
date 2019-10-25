@@ -150,16 +150,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btn_back:
-                calculator.backspace();
+                calculator.deleteLast();
                 renderElements();
                 break;
 
             case R.id.btn_dot:
-                buttonInput(".");
+                calculator.receiveDot();
+                renderElements();
                 break;
 
             case R.id.btn_PlusMinus:
-                buttonInput("-");
+                calculator.receiveNegative();
+                renderElements();
                 break;
         }
     }

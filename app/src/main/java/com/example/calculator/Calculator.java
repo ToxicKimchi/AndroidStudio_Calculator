@@ -3,17 +3,23 @@ package com.example.calculator;
 import java.util.ArrayList;
 
 public class Calculator {
+    //contains full history of contents of received and is generally 1 to 1 with what's displayed
     private ArrayList<String> contents = new ArrayList<>();
+    //contains the most recent entry when it's not set in stone to then be added to contents
     private String stagingArea = "";
+    //value used for clearing the staging area specifically after pressing equals
     private boolean resetStagingArea = false;
+    //class that handles all calculations
     private ArithmeticHandler arithmeticHandler = new ArithmeticHandler();
 
-    public void receiveInput(String input) {
+    public void receiveDot() {
+        if (stagingArea.contains(".")) {
+            stagingArea += ".";
+        }
+    }
 
-        if (input.equals(".") && !stagingArea.contains(".")) {
-            stagingArea += input;
-
-        } else if (input.equals("-") && stagingArea.length() > 0) {
+    public void receiveNegative() {
+        if (stagingArea.length() > 0) {
             if (stagingArea.charAt(0) == '-') {
                 stagingArea = stagingArea.substring(1);
             }
@@ -91,7 +97,7 @@ public class Calculator {
         return commitStagingArea("");
     }
 
-    public void backspace() {
+    public void deleteLast() {
         if (!StringUtil.isOperator(stagingArea) && !stagingArea.equals("")) {
             stagingArea = stagingArea.substring(0, stagingArea.length() - 1);
         }

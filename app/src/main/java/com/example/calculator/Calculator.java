@@ -48,6 +48,17 @@ public class Calculator {
                 }
             }
 
+            else if (number.equals("_")) {
+
+                if (stagingArea.charAt(0) == '-') {
+                    stagingArea = stagingArea.substring(1);
+                }
+
+                else if (!stagingArea.equals("")) {
+                    stagingArea = "-" + stagingArea;
+                }
+            }
+
             else {
                 stagingArea += number;
             }

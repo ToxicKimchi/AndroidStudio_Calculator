@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttons.add((Button) findViewById(R.id.btn_CE));
         buttons.add((Button) findViewById(R.id.btn_back));
         buttons.add((Button) findViewById(R.id.btn_dot));
+        buttons.add((Button) findViewById(R.id.btn_PlusMinus));
 
         for (Button b : buttons) {
             b.setOnClickListener(this);
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     //TODO: Add sliding menu from side for advanced operations
     //TODO: Improve overall gui
+    //TODO: Fix decimal issue
 
     private void renderElements() {
         String display = calculator.outputDisplay();
@@ -138,6 +140,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.btn_dot:
                 buttonInput(".");
+                break;
+
+            case R.id.btn_PlusMinus:
+                buttonInput("_");
                 break;
         }
     }

@@ -13,9 +13,7 @@ public class Calculator {
         if (input.equals(".") && !stagingArea.contains(".")) {
             stagingArea += input;
 
-        }
-
-        else if (input.equals("_") && stagingArea.length() > 0) {
+        } else if (input.equals("-") && stagingArea.length() > 0) {
             if (stagingArea.charAt(0) == '-') {
                 stagingArea = stagingArea.substring(1);
             }

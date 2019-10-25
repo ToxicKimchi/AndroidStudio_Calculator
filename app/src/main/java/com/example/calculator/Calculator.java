@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Calculator {
     private ArrayList<String> contents = new ArrayList<>();
     private String stagingArea = "";
-    private final char[] OPERATOR = new char[] { '+', '-', '/', '*' };
     private boolean resetStagingArea = false;
+    private ArithmeticHandler arithmeticHandler = new ArithmeticHandler();
 
     public void receiveInput(String input) {
 
@@ -27,7 +27,7 @@ public class Calculator {
     }
 
     public void receiveOperator(String operator) {
-        if (isOperator(stagingArea)) {
+        if (StringUtil.isOperator(stagingArea)) {
             stagingArea = operator;
         }
 
@@ -39,7 +39,7 @@ public class Calculator {
     }
 
     public void receiveNumber(String number) {
-        if (isOperator(stagingArea)) {
+        if (StringUtil.isOperator(stagingArea)) {
             commitStagingArea(number);
         }
 
@@ -67,103 +67,17 @@ public class Calculator {
     }
 
     public String calculate() {
-        if (stagingArea.equals("") || isOperator(stagingArea)) {
-            return outputDisplay();
+        if (!stagingArea.equals("") && !StringUtil.isOperator(stagingArea)) {
+            commitStagingArea();
+
+            stagingArea = arithmeticHandler.calculate(contents);
+            resetStagingArea = true;
+            return stagingArea;
         }
 
-        commitStagingArea();
-
-        //calculating all multiply and divide
-        processOperators('*', '/');
-        processOperators('+','-');
-
-        resetStagingArea = true;
-        stagingArea = contents.get(0);
-        contents.remove(0);
-
-        return stagingArea;
+        return outputDisplay();
     }
 
-    private void processOperators(char x, char y) {
-
-        while (contents.contains(Character.toString(x))
-                || contents.contains(Character.toString(y))) {
-
-            int index = findIndex(new char[] { x, y});
-            processIndex(index);
-        }
-    }
-
-    private int findIndex(char[] searchTerms) {
-        //looking for first instance of + or -
-        for (int i = 0; i < contents.size(); i++) {
-
-            String result = contents.get(i);
-            if (result.equals(Character.toString(searchTerms[0]))
-                    || result.equals(Character.toString(searchTerms[1]))) {
-                return i;
-            }
-        }
-
-        //should never occur since we validate that a + or - exists before running
-        return -1;
-    }
-
-    //receives index in array and processes the value before and after index
-    private void processIndex(int index) {
-        double result = getResult(index);
-
-        //not a typo removes the middle and last value used to calculate
-        contents.remove(index);
-        contents.remove(index);
-
-        //replace first value with result
-        contents.set(index - 1, Double.toString(result));
-    }
-
-    private double getResult(int index) {
-        if (contents.size() == index + 1) {
-            return Integer.parseInt(contents.get(index - 1));
-        }
-
-        double x = Double.parseDouble(contents.get(index - 1));
-        double y = Double.parseDouble(contents.get(index + 1));
-        double result = 0;
-        char operator = contents.get(index).charAt(0); //only 1 char anyway index is needed
-
-        switch (operator) {
-            case '+':
-                result = x + y;
-                break;
-
-            case '-':
-                result = x - y;
-                break;
-
-            case '*':
-                result = x * y;
-                break;
-
-            case '/':
-                result = x / y;
-                break;
-
-            default:
-                throw new IllegalStateException("Unexpected value: " + operator);
-        }
-
-        return result;
-    }
-
-    private boolean isOperator(String input) {
-        for (char operator : OPERATOR) {
-            if (input.equals(Character.toString(operator))) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 
     private boolean commitStagingArea(String input) {
         if (stagingArea.equals("")) {
@@ -180,7 +94,7 @@ public class Calculator {
     }
 
     public void backspace() {
-        if (!isOperator(stagingArea) && !stagingArea.equals("")) {
+        if (!StringUtil.isOperator(stagingArea) && !stagingArea.equals("")) {
             stagingArea = stagingArea.substring(0, stagingArea.length() - 1);
         }
     }

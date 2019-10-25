@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttons.add((Button) findViewById(R.id.btn_times));
         buttons.add((Button) findViewById(R.id.btn_divide));
         buttons.add((Button) findViewById(R.id.btn_equals));
+        buttons.add((Button) findViewById(R.id.btn_C));
         buttons.add((Button) findViewById(R.id.btn_CE));
         buttons.add((Button) findViewById(R.id.btn_back));
         buttons.add((Button) findViewById(R.id.btn_dot));
@@ -55,6 +56,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txt_display.setText(display);
     }
 
+    private void operatorInput(String input) {
+        calculator.receiveOperator(input);
+        renderElements();
+    }
+
+    private void numberInput(String input) {
+        calculator.receiveNumber(input);
+        renderElements();
+    }
+
     private void buttonInput(String input) {
         calculator.receiveInput(input);
         renderElements();
@@ -69,67 +80,72 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_0:
-                buttonInput("0");
+                numberInput("0");
                 break;
 
             case R.id.btn_1:
-                buttonInput("1");
+                numberInput("1");
                 break;
 
             case  R.id.btn_2:
-                buttonInput("2");
+                numberInput("2");
                 break;
 
             case R.id.btn_3:
-                buttonInput("3");
+                numberInput("3");
                 break;
 
             case R.id.btn_4:
-                buttonInput("4");
+                numberInput("4");
                 break;
 
             case R.id.btn_5:
-                buttonInput("5");
+                numberInput("5");
                 break;
 
             case R.id.btn_6:
-                buttonInput("6");
+                numberInput("6");
                 break;
 
             case R.id.btn_7:
-                buttonInput("7");
+                numberInput("7");
                 break;
 
             case R.id.btn_8:
-                buttonInput("8");
+                numberInput("8");
                 break;
 
             case R.id.btn_9:
-                buttonInput("9");
+                numberInput("9");
                 break;
 
             case R.id.btn_plus:
-                buttonInput("+");
+                operatorInput("+");
                 break;
 
             case R.id.btn_minus:
-                buttonInput("-");
+                operatorInput("-");
                 break;
 
             case R.id.btn_times:
-                buttonInput("*");
+                operatorInput("*");
                 break;
 
             case R.id.btn_divide:
-                buttonInput("/");
+                operatorInput("/");
                 break;
 
             case R.id.btn_equals:
                 equalsPressed();
                 break;
 
-            case R.id.btn_CE:
+            case R.id.btn_C:
                 calculator.clear();
+                renderElements();
+                break;
+
+            case R.id.btn_CE:
+                calculator.clearEntry();
                 renderElements();
                 break;
 
@@ -143,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btn_PlusMinus:
-                buttonInput("_");
+                buttonInput("-");
                 break;
         }
     }

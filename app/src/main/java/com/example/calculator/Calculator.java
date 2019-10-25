@@ -3,23 +3,30 @@ package com.example.calculator;
 import java.util.ArrayList;
 
 public class Calculator {
-    private ArrayList<String> contents = new ArrayList<String>();
+    private ArrayList<String> contents = new ArrayList<>();
     private String stagingArea = "";
     private final char[] OPERATOR = new char[] { '+', '-', '/', '*' };
     private boolean resetStagingArea = false;
 
     public void receiveInput(String input) {
 
-        if (isOperator(input)) {
-            receiveOperator(input);
+        if (input.equals(".") && !stagingArea.contains(".")) {
+            stagingArea += input;
+
         }
 
-        else {
-            receiveNumber(input);
+        else if (input.equals("_") && stagingArea.length() > 0) {
+            if (stagingArea.charAt(0) == '-') {
+                stagingArea = stagingArea.substring(1);
+            }
+
+            else {
+                stagingArea = "-" + stagingArea;
+            }
         }
     }
 
-    private void receiveOperator(String operator) {
+    public void receiveOperator(String operator) {
         if (isOperator(stagingArea)) {
             stagingArea = operator;
         }
@@ -31,7 +38,7 @@ public class Calculator {
 
     }
 
-    private void receiveNumber(String number) {
+    public void receiveNumber(String number) {
         if (isOperator(stagingArea)) {
             commitStagingArea(number);
         }
@@ -40,23 +47,6 @@ public class Calculator {
             if (resetStagingArea) {
                 stagingArea = number;
                 resetStagingArea = false;
-            }
-
-            else if (number.equals(".")) {
-                if (!stagingArea.contains(".")) {
-                    stagingArea += number;
-                }
-            }
-
-            else if (number.equals("_")) {
-
-                if (stagingArea.charAt(0) == '-') {
-                    stagingArea = stagingArea.substring(1);
-                }
-
-                else if (!stagingArea.equals("")) {
-                    stagingArea = "-" + stagingArea;
-                }
             }
 
             else {
@@ -197,6 +187,10 @@ public class Calculator {
 
     public void clear() {
         contents.clear();
+        stagingArea = "";
+    }
+
+    public void clearEntry() {
         stagingArea = "";
     }
 }

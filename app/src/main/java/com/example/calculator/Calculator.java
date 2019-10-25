@@ -67,15 +67,15 @@ public class Calculator {
     }
 
     public String calculate() {
-        if (!stagingArea.equals("") && !StringUtil.isOperator(stagingArea)) {
-            commitStagingArea();
-
-            stagingArea = arithmeticHandler.calculate(contents);
-            resetStagingArea = true;
-            return stagingArea;
+        if (stagingArea.equals("") || StringUtil.isOperator(stagingArea)) {
+            return outputDisplay();
         }
 
-        return outputDisplay();
+        commitStagingArea();
+        stagingArea = arithmeticHandler.calculate(contents);
+        resetStagingArea = true;
+
+        return stagingArea;
     }
 
 

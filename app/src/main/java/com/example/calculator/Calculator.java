@@ -3,9 +3,9 @@ package com.example.calculator;
 import java.util.ArrayList;
 
 public class Calculator {
-    //contains full history of contents of received and is generally 1 to 1 with what's displayed
-    private ArrayList<String> contents = new ArrayList<>();
-    //contains the most recent entry when it's not set in stone to then be added to contents
+    //contains full history of expression of received and is generally 1 to 1 with what's displayed
+    private ArrayList<String> expression = new ArrayList<>();
+    //contains the most recent entry when it's not set in stone to then be added to expression
     private String stagingArea = "";
     //value used for clearing the staging area specifically after pressing equals
     private boolean resetStagingArea = false;
@@ -62,7 +62,7 @@ public class Calculator {
     public String outputDisplay() {
         String output = "";
 
-        for (String item : contents) {
+        for (String item : expression) {
             output += item + " ";
         }
 
@@ -76,7 +76,7 @@ public class Calculator {
         }
 
         commitStagingArea();
-        stagingArea = arithmeticHandler.calculate(contents);
+        stagingArea = arithmeticHandler.calculate(expression);
         resetStagingArea = true;
 
         return stagingArea;
@@ -88,7 +88,7 @@ public class Calculator {
             return false;
         }
 
-        contents.add(stagingArea);
+        expression.add(stagingArea);
         stagingArea = input;
         return true;
     }
@@ -104,7 +104,7 @@ public class Calculator {
     }
 
     public void clear() {
-        contents.clear();
+        expression.clear();
         stagingArea = "";
     }
 

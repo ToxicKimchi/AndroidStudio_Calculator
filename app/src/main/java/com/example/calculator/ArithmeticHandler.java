@@ -23,7 +23,7 @@ public class ArithmeticHandler {
         while (contents.contains(Character.toString(x))
                 || contents.contains(Character.toString(y))) {
 
-            int index = findIndex(new char[] { x, y});
+            int index = findIndex(new char[]{x, y});
             processIndex(index);
         }
     }

@@ -66,11 +66,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         renderElements();
     }
 
-    private void buttonInput(String input) {
-        calculator.receiveInput(input);
-        renderElements();
-    }
-
     private void equalsPressed() {
         TextView display = findViewById(R.id.txt_display);
         display.setText(calculator.calculate());

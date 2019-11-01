@@ -13,7 +13,9 @@ public class Calculator {
     private ArithmeticHandler arithmeticHandler = new ArithmeticHandler();
 
     public void receiveDot() {
-        if (stagingArea.contains(".")) {
+        if (StringUtil.isOperator(stagingArea)) {
+            commitStagingArea(".");
+        } else if (!stagingArea.contains(".")) {
             stagingArea += ".";
         }
     }
@@ -22,11 +24,15 @@ public class Calculator {
         if (stagingArea.length() > 0) {
             if (stagingArea.charAt(0) == '-') {
                 stagingArea = stagingArea.substring(1);
-            }
-
-            else {
+            } else if (!StringUtil.isOperator(stagingArea)) {
                 stagingArea = "-" + stagingArea;
             }
+        }
+    }
+
+    public void receiveExponent() {
+        if (!StringUtil.isOperator(stagingArea)) {
+            stagingArea += "^";
         }
     }
 

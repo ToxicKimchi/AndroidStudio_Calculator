@@ -62,9 +62,9 @@ public class ArithmeticHandler {
 
         double x = Double.parseDouble(contents.get(index - 1));
         double y = Double.parseDouble(contents.get(index + 1));
-        double result = 0;
         char operator = contents.get(index).charAt(0); //only 1 char anyway index is needed
 
+        double result;
         switch (operator) {
             case '+':
                 result = x + y;

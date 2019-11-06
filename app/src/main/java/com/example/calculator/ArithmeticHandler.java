@@ -29,23 +29,35 @@ public class ArithmeticHandler {
         return result;
     }
 
-    private void processOperators(char x, char y) {
+    private boolean contentsHasOperator(Operation o) {
+        for (String operation : o.getOperators()) {
+            if (contents.contains(o)) {
+                return true;
+            }
+        }
 
-        while (contents.contains(Character.toString(x))
-                || contents.contains(Character.toString(y))) {
+        return false;
+    }
 
-            int index = findIndex(new char[]{x, y});
-            processIndex(index);
+    private void processOperators(Operation o) {
+
+        while (contentsHasOperator(o)) {
+
+            int index = findIndex(o);
+            processIndex(index, o);
         }
     }
 
-    private int findIndex(char[] searchTerms) {
+    private int findIndex(Operation o) {
+        String[] searchTerms = o.getOperators();
+
+
         //looking for first instance of + or -
         for (int i = 0; i < contents.size(); i++) {
 
             String result = contents.get(i);
-            if (result.equals(Character.toString(searchTerms[0]))
-                    || result.equals(Character.toString(searchTerms[1]))) {
+            if (result.equals(searchTerms[0])
+                    || result.equals(searchTerms[1])) {
                 return i;
             }
         }
@@ -55,8 +67,8 @@ public class ArithmeticHandler {
     }
 
     //receives index in array and processes the value before and after index
-    private void processIndex(int index) {
-        BigDecimal result = getResult(index);
+    private void processIndex(int index, Operation o) {
+        BigDecimal result = getResult(index, o);
 
         //not a typo removes the middle and last value used to calculate
         contents.remove(index);
@@ -66,38 +78,18 @@ public class ArithmeticHandler {
         contents.set(index - 1, result.toString());
     }
 
-    private BigDecimal getResult(int index) {
+    private BigDecimal getResult(int index, Operation o) {
         if (contents.size() == index + 1) {
             return new BigDecimal(contents.get(index - 1));
         }
 
-        BigDecimal x = new BigDecimal(contents.get(index - 1));
-        BigDecimal y = new BigDecimal(contents.get(index + 1));
+        BigDecimal[] variables = new BigDecimal[]{
+                new BigDecimal(contents.get(index - 1)),
+                new BigDecimal(contents.get(index + 1))};
 
 
-        char operator = contents.get(index).charAt(0); //only 1 char anyway index is needed
-
-        BigDecimal result;
-        switch (operator) {
-            case '+':
-                result = x.add(y);
-                break;
-
-            case '-':
-                result = x.subtract(y);
-                break;
-
-            case '*':
-                result = x.multiply(y);
-                break;
-
-            case '/':
-                result = x.divide(y);
-                break;
-
-            default:
-                throw new IllegalStateException("Unexpected value: " + operator);
-        }
+        String operator = contents.get(index); //only 1 char anyway index is needed
+        BigDecimal result = o.handleOperation(operator, variables);
 
         return result;
     }

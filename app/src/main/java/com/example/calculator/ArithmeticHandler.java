@@ -7,15 +7,19 @@ import com.example.calculator.operations.Operation;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+/*
+Is represented by Calculator class to handle calculations specifically.
+ */
 public class ArithmeticHandler {
     private ArrayList<String> contents;
 
-    public String calculate(ArrayList<String> contents) {
+    public String calculateAndEmptyContents(ArrayList<String> contents) {
         this.contents = contents;
 
-        ArrayList<Operation> operations = new ArrayList<>();
-        operations.add(new MultiplyDivideOperation());
-        operations.add(new AddSubtractOperation());
+        Operation[] operations = new Operation[]{
+                new MultiplyDivideOperation(),
+                new AddSubtractOperation()
+        };
 
         for (Operation o : operations) {
             processOperators(o);
@@ -25,9 +29,14 @@ public class ArithmeticHandler {
         //done to leave contents array empty
         String result = contents.get(0);
         contents.remove(0);
+
         return result;
     }
 
+    /*
+    TODO: The coupling of ArithmeticHandler and the Operation subclasses is very tight
+    TODO: Try to make this class work with more general operations and refactor it a ton
+    */
     private void processOperators(Operation o) {
 
         while (contentsHasOperator(o)) {
@@ -59,7 +68,7 @@ public class ArithmeticHandler {
     private void processIndex(int index, Operation o) {
         BigDecimal result = getResult(index, o);
 
-        //not a typo removes the middle and last value used to calculate
+        //not a typo removes the middle and last value used to calculateAndEmptyContents
         contents.remove(index);
         contents.remove(index);
 

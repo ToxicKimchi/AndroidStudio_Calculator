@@ -2,8 +2,17 @@ package com.example.calculator;
 
 import java.util.ArrayList;
 
+/*
+Calculator class is representative of the front end interface for the calculator application.
+It handles how input is received, how to know what displays for the GUI and also makes sure the user
+does not input something that is an invalid expression.
+
+Calculator class uses stagingArea to prepare something to be added to a full expression
+
+Calculator class uses HAS-A relationship with ArithmeticHandler and will always contain 1 instance
+of this to handle calculations.
+ */
 public class Calculator {
-    //contains full history of expression of received and is generally 1 to 1 with what's displayed
     private ArrayList<String> expression = new ArrayList<>();
     //contains the most recent entry when it's not set in stone to then be added to expression
     private String stagingArea = "";
@@ -39,9 +48,8 @@ public class Calculator {
     public void receiveOperator(String operator) {
         if (StringUtil.isOperator(stagingArea)) {
             stagingArea = operator;
-        }
 
-        else {
+        } else {
             commitStagingArea(operator);
             resetStagingArea = false;
         }
@@ -51,15 +59,12 @@ public class Calculator {
     public void receiveNumber(String number) {
         if (StringUtil.isOperator(stagingArea)) {
             commitStagingArea(number);
-        }
 
-        else {
+        } else {
             if (resetStagingArea) {
                 stagingArea = number;
                 resetStagingArea = false;
-            }
-
-            else {
+            } else {
                 stagingArea += number;
             }
         }
@@ -82,7 +87,7 @@ public class Calculator {
         }
 
         commitStagingArea();
-        stagingArea = arithmeticHandler.calculate(expression);
+        stagingArea = arithmeticHandler.calculateAndEmptyContents(expression);
         resetStagingArea = true;
 
 

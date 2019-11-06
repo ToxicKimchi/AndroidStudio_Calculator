@@ -1,5 +1,9 @@
 package com.example.calculator;
 
+import com.example.calculator.operations.AddSubtractOperation;
+import com.example.calculator.operations.Operation;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class ArithmeticHandler {
@@ -9,8 +13,15 @@ public class ArithmeticHandler {
         this.contents = contents;
 
         //calculating all multiply and divide
-        processOperators('*', '/');
-        processOperators('+','-');
+
+        ArrayList<Operation> operations = new ArrayList<>();
+        operations.add(new AddSubtractOperation());
+        //operations.add(new)
+        for (Operation o : operations) {
+            processOperators(o);
+            //processOperators('+','-');
+        }
+
 
         //done to leave contents array empty
         String result = contents.get(0);
@@ -45,41 +56,43 @@ public class ArithmeticHandler {
 
     //receives index in array and processes the value before and after index
     private void processIndex(int index) {
-        double result = getResult(index);
+        BigDecimal result = getResult(index);
 
         //not a typo removes the middle and last value used to calculate
         contents.remove(index);
         contents.remove(index);
 
         //replace first value with result
-        contents.set(index - 1, Double.toString(result));
+        contents.set(index - 1, result.toString());
     }
 
-    private double getResult(int index) {
+    private BigDecimal getResult(int index) {
         if (contents.size() == index + 1) {
-            return Integer.parseInt(contents.get(index - 1));
+            return new BigDecimal(contents.get(index - 1));
         }
 
-        double x = Double.parseDouble(contents.get(index - 1));
-        double y = Double.parseDouble(contents.get(index + 1));
+        BigDecimal x = new BigDecimal(contents.get(index - 1));
+        BigDecimal y = new BigDecimal(contents.get(index + 1));
+
+
         char operator = contents.get(index).charAt(0); //only 1 char anyway index is needed
 
-        double result;
+        BigDecimal result;
         switch (operator) {
             case '+':
-                result = x + y;
+                result = x.add(y);
                 break;
 
             case '-':
-                result = x - y;
+                result = x.subtract(y);
                 break;
 
             case '*':
-                result = x * y;
+                result = x.multiply(y);
                 break;
 
             case '/':
-                result = x / y;
+                result = x.divide(y);
                 break;
 
             default:

@@ -85,6 +85,7 @@ public class Calculator {
         stagingArea = arithmeticHandler.calculate(expression);
         resetStagingArea = true;
 
+
         return stagingArea;
     }
 

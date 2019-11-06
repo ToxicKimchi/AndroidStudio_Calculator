@@ -1,6 +1,7 @@
 package com.example.calculator;
 
 import com.example.calculator.operations.AddSubtractOperation;
+import com.example.calculator.operations.MultiplyDivideOperation;
 import com.example.calculator.operations.Operation;
 
 import java.math.BigDecimal;
@@ -12,14 +13,12 @@ public class ArithmeticHandler {
     public String calculate(ArrayList<String> contents) {
         this.contents = contents;
 
-        //calculating all multiply and divide
-
         ArrayList<Operation> operations = new ArrayList<>();
+        operations.add(new MultiplyDivideOperation());
         operations.add(new AddSubtractOperation());
-        //operations.add(new)
+
         for (Operation o : operations) {
             processOperators(o);
-            //processOperators('+','-');
         }
 
 
@@ -27,16 +26,6 @@ public class ArithmeticHandler {
         String result = contents.get(0);
         contents.remove(0);
         return result;
-    }
-
-    private boolean contentsHasOperator(Operation o) {
-        for (String operation : o.getOperators()) {
-            if (contents.contains(o)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     private void processOperators(Operation o) {
@@ -92,5 +81,15 @@ public class ArithmeticHandler {
         BigDecimal result = o.handleOperation(operator, variables);
 
         return result;
+    }
+
+    private boolean contentsHasOperator(Operation o) {
+        for (String operation : o.getOperators()) {
+            if (contents.contains(operation)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

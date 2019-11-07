@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttons.add((Button) findViewById(R.id.btn_back));
         buttons.add((Button) findViewById(R.id.btn_dot));
         buttons.add((Button) findViewById(R.id.btn_exponent));
+        buttons.add((Button) findViewById(R.id.btn_percent));
         buttons.add((Button) findViewById(R.id.btn_PlusMinus));
 
         for (Button b : buttons) {
@@ -157,6 +158,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.btn_exponent:
                 calculator.receiveExponent();
+                renderElements();
+                break;
+
+            case R.id.btn_percent:
+                calculator.receivePercent();
                 renderElements();
                 break;
 

@@ -56,6 +56,10 @@ public class Calculator {
 
     }
 
+    public void receivePercent() {
+        stagingArea += "%";
+    }
+
     public void receiveNumber(String number) {
         if (StringUtil.isOperator(stagingArea)) {
             commitStagingArea(number);

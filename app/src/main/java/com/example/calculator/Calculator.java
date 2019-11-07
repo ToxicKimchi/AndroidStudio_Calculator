@@ -46,7 +46,9 @@ public class Calculator {
     }
 
     public void receiveRoot() {
-        stagingArea += "/-";
+        if (!stagingArea.isEmpty() && isLastInputChar('^')) {
+            stagingArea += "^";
+        }
     }
 
     public void receiveOperator(String operator) {
@@ -57,7 +59,6 @@ public class Calculator {
             commitStagingArea(operator);
             resetStagingArea = false;
         }
-
     }
 
     public void receiveNumber(String number) {
@@ -125,5 +126,9 @@ public class Calculator {
 
     public void clearEntry() {
         stagingArea = "";
+    }
+
+    private boolean isLastInputChar(char c) {
+        return stagingArea.charAt(stagingArea.length()) != c;
     }
 }

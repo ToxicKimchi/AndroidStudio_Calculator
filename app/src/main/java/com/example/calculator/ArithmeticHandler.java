@@ -5,6 +5,7 @@ import com.example.calculator.operations.MultiplyDivideOperation;
 import com.example.calculator.operations.Operation;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /*
@@ -72,8 +73,12 @@ public class ArithmeticHandler {
         contents.remove(index);
         contents.remove(index);
 
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(9);
+        df.setMinimumFractionDigits(0);
+
         //replace first value with result
-        contents.set(index - 1, result.toString());
+        contents.set(index - 1, df.format(result));
     }
 
     private BigDecimal getResult(int index, Operation o) {

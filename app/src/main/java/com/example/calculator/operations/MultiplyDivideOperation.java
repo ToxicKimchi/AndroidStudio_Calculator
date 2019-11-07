@@ -1,6 +1,7 @@
 package com.example.calculator.operations;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class MultiplyDivideOperation extends Operation {
     @Override
@@ -15,7 +16,7 @@ public class MultiplyDivideOperation extends Operation {
         if (operator.equals("*")) {
             result = variables[0].multiply(variables[1]);
         } else if (operator.equals("/")) {
-            result = variables[0].divide(variables[1]);
+            result = variables[0].divide(variables[1], 9, RoundingMode.HALF_DOWN);
         }
 
         return result;

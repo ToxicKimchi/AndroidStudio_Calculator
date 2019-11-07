@@ -45,6 +45,10 @@ public class Calculator {
         }
     }
 
+    public void receiveRoot() {
+        stagingArea += "/-";
+    }
+
     public void receiveOperator(String operator) {
         if (StringUtil.isOperator(stagingArea)) {
             stagingArea = operator;

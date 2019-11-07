@@ -95,18 +95,17 @@ public class Calculator {
     }
 
 
-    private boolean commitStagingArea(String input) {
+    private void commitStagingArea(String input) {
         if (stagingArea.equals("")) {
-            return false;
+            return;
         }
 
         expression.add(stagingArea);
         stagingArea = input;
-        return true;
     }
 
-    private boolean commitStagingArea() {
-        return commitStagingArea("");
+    private void commitStagingArea() {
+        commitStagingArea("");
     }
 
     public void deleteLast() {

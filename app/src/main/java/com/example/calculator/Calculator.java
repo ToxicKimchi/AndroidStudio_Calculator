@@ -23,7 +23,7 @@ public class Calculator {
 
     public void receiveDot() {
         if (StringUtil.isOperator(stagingArea)) {
-            commitStagingArea(".");
+            commitStagingAreaAndReplace(".");
         } else if (!stagingArea.contains(".")) {
             stagingArea += ".";
         }
@@ -40,14 +40,8 @@ public class Calculator {
     }
 
     public void receiveExponent() {
-        if (!StringUtil.isOperator(stagingArea)) {
-            stagingArea += "^";
-        }
-    }
-
-    public void receiveRoot() {
-        if (!stagingArea.isEmpty() && isLastInputChar('^')) {
-            stagingArea += "^";
+        if (!stagingArea.isEmpty() && isLastInputEqualTo('^')) {
+            commitStagingAreaAndReplace("^");
         }
     }
 
@@ -56,14 +50,14 @@ public class Calculator {
             stagingArea = operator;
 
         } else {
-            commitStagingArea(operator);
+            commitStagingAreaAndReplace(operator);
             resetStagingArea = false;
         }
     }
 
     public void receiveNumber(String number) {
-        if (StringUtil.isOperator(stagingArea)) {
-            commitStagingArea(number);
+        if (!stagingArea.isEmpty() && !StringUtil.isDigit(stagingArea)) {
+            commitStagingAreaAndReplace(number);
 
         } else {
             if (resetStagingArea) {
@@ -91,7 +85,7 @@ public class Calculator {
             return outputDisplay();
         }
 
-        commitStagingArea();
+        commitStagingAreaAndReplace();
         stagingArea = arithmeticHandler.calculateAndEmptyContents(expression);
         resetStagingArea = true;
 
@@ -100,7 +94,7 @@ public class Calculator {
     }
 
 
-    private void commitStagingArea(String input) {
+    private void commitStagingAreaAndReplace(String input) {
         if (stagingArea.equals("")) {
             return;
         }
@@ -109,8 +103,8 @@ public class Calculator {
         stagingArea = input;
     }
 
-    private void commitStagingArea() {
-        commitStagingArea("");
+    private void commitStagingAreaAndReplace() {
+        commitStagingAreaAndReplace("");
     }
 
     public void deleteLast() {
@@ -128,7 +122,7 @@ public class Calculator {
         stagingArea = "";
     }
 
-    private boolean isLastInputChar(char c) {
-        return stagingArea.charAt(stagingArea.length()) != c;
+    private boolean isLastInputEqualTo(char c) {
+        return stagingArea.charAt(stagingArea.length() - 1) != c;
     }
 }

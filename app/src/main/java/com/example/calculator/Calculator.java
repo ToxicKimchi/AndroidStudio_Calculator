@@ -39,14 +39,8 @@ public class Calculator {
         }
     }
 
-    public void receiveExponent() {
-        if (!stagingArea.isEmpty() && isLastInputEqualTo('^')) {
-            commitStagingAreaAndReplace("^");
-        }
-    }
-
     public void receiveOperator(String operator) {
-        if (StringUtil.isOperator(stagingArea)) {
+        if (!stagingArea.isEmpty() && !StringUtil.isDigit(stagingArea)) {
             stagingArea = operator;
 
         } else {

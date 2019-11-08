@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btn_exponent:
-                calculator.receiveExponent();
+                calculator.receiveOperator("^");
                 renderElements();
                 break;
 

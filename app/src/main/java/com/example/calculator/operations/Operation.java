@@ -11,8 +11,6 @@ public abstract class Operation {
 
     public abstract String[] setOperators();
 
-    public abstract BigDecimal handleOperation(String operator, BigDecimal[] variables);
-
     public String[] getOperators() {
         return operators;
     }

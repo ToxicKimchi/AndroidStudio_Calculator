@@ -92,8 +92,8 @@ public class ArithmeticHandler {
 
 
         String operator = contents.get(index); //only 1 char anyway index is needed
-        BigDecimal result = o.handleOperation(operator, variables);
-
+        //TODO: Error with new class layer for operations
+        BigDecimal result = new BigDecimal(0);//o.handleOperation(operator, variables);
         return result;
     }
 

@@ -1,8 +1,10 @@
 package com.example.calculator;
 
 import com.example.calculator.operations.AddSubtractOperation;
+import com.example.calculator.operations.MultiInputOperation;
 import com.example.calculator.operations.MultiplyDivideOperation;
 import com.example.calculator.operations.Operation;
+import com.example.calculator.operations.SingleInputOperation;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -90,10 +92,18 @@ public class ArithmeticHandler {
                 new BigDecimal(contents.get(index - 1)),
                 new BigDecimal(contents.get(index + 1))};
 
+        BigDecimal result = new BigDecimal(0);
 
-        String operator = contents.get(index); //only 1 char anyway index is needed
-        //TODO: Error with new class layer for operations
-        BigDecimal result = new BigDecimal(0);//o.handleOperation(operator, variables);
+        if (o instanceof MultiInputOperation) {
+            String operator = contents.get(index); //only 1 char anyway index is needed
+            MultiInputOperation newO = (MultiInputOperation) o;
+            result = newO.handleOperation(operator, variables);
+
+        } else if (o instanceof SingleInputOperation) {
+            SingleInputOperation newO = (SingleInputOperation) o;
+            result = newO.handleOperation(variables);
+        }
+
         return result;
     }
 

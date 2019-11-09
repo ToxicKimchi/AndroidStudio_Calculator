@@ -83,17 +83,17 @@ public class Calculator {
         stagingArea = arithmeticHandler.calculateAndEmptyContents(expression);
         resetStagingArea = true;
 
-
         return stagingArea;
     }
 
 
     private void commitStagingArea(String input) {
-        if (input != null && !input.isEmpty()) {
-            expression.add(stagingArea);
-            stagingArea = input;
+        if (stagingArea.equals("")) {
+            return;
         }
-        return;
+
+        expression.add(stagingArea);
+        stagingArea = input;
     }
 
     private void commitStagingArea() {

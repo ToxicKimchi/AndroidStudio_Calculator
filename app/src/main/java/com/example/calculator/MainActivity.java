@@ -9,13 +9,21 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 import java.util.Map.Entry;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     Calculator calculator;
+    Map<Button, String> buttons = new HashMap<>();
+    String[] str_num = new String[]{"0","1","2","3","4","5","6","7","8","9"};
+    List<String> numbers = Arrays.asList(str_num);
+    String[] str_ops = new String[]{"*","/","+","-","^"};
+    List<String> operations = Arrays.asList(str_ops);
+    String[] str_butts = new String[]{"0","1","2","3","4","5","6","7","8","9","times","divide","plus","minus","exponent","C","CE","back","dot","PlusMinus"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,31 +31,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         calculator = new Calculator();
-
-        Map<Button, String> buttons = new HashMap<>();
        // ArrayList<Button> buttons = new ArrayList<>();
-        buttons.put((Button) findViewById(R.id.btn_0),("0"));
-        buttons.put((Button) findViewById(R.id.btn_1),("0"));
-        buttons.put((Button) findViewById(R.id.btn_2),("0"));
-        buttons.put((Button) findViewById(R.id.btn_3),("0"));
-        buttons.put((Button) findViewById(R.id.btn_4),("0"));
-        buttons.put((Button) findViewById(R.id.btn_5),("0"));
-        buttons.put((Button) findViewById(R.id.btn_6),("0"));
-        buttons.put((Button) findViewById(R.id.btn_7),("0"));
-        buttons.put((Button) findViewById(R.id.btn_8),("0"));
-        buttons.put((Button) findViewById(R.id.btn_9),("0"));
-        buttons.put((Button) findViewById(R.id.btn_plus),("0"));
-        buttons.put((Button) findViewById(R.id.btn_minus),("0"));
-        buttons.put((Button) findViewById(R.id.btn_times),("0"));
-        buttons.put((Button) findViewById(R.id.btn_divide),("0"));
-        buttons.put((Button) findViewById(R.id.btn_equals),("0"));
-        buttons.put((Button) findViewById(R.id.btn_C),("0"));
-        buttons.put((Button) findViewById(R.id.btn_CE),("0"));
-        buttons.put((Button) findViewById(R.id.btn_back),("0"));
-        buttons.put((Button) findViewById(R.id.btn_dot),("0"));
-        buttons.put((Button) findViewById(R.id.btn_exponent),("0"));
-        buttons.put((Button) findViewById(R.id.btn_PlusMinus),("0"));
+        for (String butts : str_butts) {
+            buttons.put((Button) findViewById(getResources().getIdentifier("btn_" + butts, "id",
+                this.getPackageName())), butts);
 
+        }
+       /* buttons.put((Button) findViewById(R.id.btn_0),("0"));
+        buttons.put((Button) findViewById(R.id.btn_1),("1"));
+        buttons.put((Button) findViewById(R.id.btn_2),("2"));
+        buttons.put((Button) findViewById(R.id.btn_3),("3"));
+        buttons.put((Button) findViewById(R.id.btn_4),("4"));
+        buttons.put((Button) findViewById(R.id.btn_5),("5"));
+        buttons.put((Button) findViewById(R.id.btn_6),("6"));
+        buttons.put((Button) findViewById(R.id.btn_7),("7"));
+        buttons.put((Button) findViewById(R.id.btn_8),("8"));
+        buttons.put((Button) findViewById(R.id.btn_9),("9"));
+        buttons.put((Button) findViewById(R.id.btn_plus),("+"));
+        buttons.put((Button) findViewById(R.id.btn_minus),("-"));
+        buttons.put((Button) findViewById(R.id.btn_times),("*"));
+        buttons.put((Button) findViewById(R.id.btn_divide),("/"));
+        buttons.put((Button) findViewById(R.id.btn_equals),("="));
+        buttons.put((Button) findViewById(R.id.btn_exponent),("^"));
+        buttons.put((Button) findViewById(R.id.btn_C),("C"));
+        buttons.put((Button) findViewById(R.id.btn_CE),("CE"));
+        buttons.put((Button) findViewById(R.id.btn_back),("<-"));
+        buttons.put((Button) findViewById(R.id.btn_dot),("."));
+        buttons.put((Button) findViewById(R.id.btn_PlusMinus),("+/-"));
+*/
         for (Map.Entry<Button, String> entry : buttons.entrySet()) {
             Button b = (entry.getKey());
             b.setOnClickListener(this);
@@ -81,7 +92,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView display = findViewById(R.id.txt_display);
         display.setText(calculator.calculate());
     }
+    /* @Override
+    public void onClick(View v) {
 
+        if (numbers.contains(v.getId())) {
+            numberInput(buttons.get(v.getId()));
+        }
+        else if (operations.contains(v.getId())){
+            operatorInput(buttons.get(v.getId()));
+        }
+        else if (buttons.get(v.getId()).equals("C")) {
+            calculator.clear();
+        }
+        else if (buttons.get(v.getId()).equals("CE")) {
+            calculator.clearEntry();
+        }
+        else if (buttons.get(v.getId()).equals("=")) {
+            equalsPressed();
+        }
+        else if (buttons.get(v.getId()).equals(".")) {
+            calculator.receiveDot();
+        }
+        else if (buttons.get(v.getId()).equals("+/-")) {
+            calculator.receiveNegative();
+        }
+        else if (buttons.get(v.getId()).equals("<-")) {
+            calculator.deleteLast();
+        }
+   */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

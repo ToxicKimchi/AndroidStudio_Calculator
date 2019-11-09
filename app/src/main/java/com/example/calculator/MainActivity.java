@@ -16,14 +16,19 @@ import java.util.List;
 import java.util.Map.Entry;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Calculator calculator;
     Map<Button, String> buttons = new HashMap<>();
-    String[] str_num = new String[]{"0","1","2","3","4","5","6","7","8","9"};
+    String[] str_num = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
     List<String> numbers = Arrays.asList(str_num);
-    String[] str_ops = new String[]{"*","/","+","-","^"};
-    List<String> operations = Arrays.asList(str_ops);
-    String[] str_butts = new String[]{"0","1","2","3","4","5","6","7","8","9","times","divide","plus","minus","exponent","C","CE","back","dot","PlusMinus"};
+    Map<String, String> operations = new HashMap<String, String>(){{
+        put("times","x");
+        put("divide","/");
+        put("plus","+");
+        put("minus","-");
+        put("exponent","^");
+    }};
+    String[] str_butts = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "times", "divide", "plus", "minus", "exponent", "C", "CE", "back", "dot", "PlusMinus", "equals"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +36,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         calculator = new Calculator();
-       // ArrayList<Button> buttons = new ArrayList<>();
+        // ArrayList<Button> buttons = new ArrayList<>();
         for (String butts : str_butts) {
             buttons.put((Button) findViewById(getResources().getIdentifier("btn_" + butts, "id",
-                this.getPackageName())), butts);
+                    this.getPackageName())) , butts);
 
         }
        /* buttons.put((Button) findViewById(R.id.btn_0),("0"));
@@ -63,9 +68,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Button b = (entry.getKey());
             b.setOnClickListener(this);
         }
-    //    for (Button b : buttons) {
-    //        b.setOnClickListener(this);
-    //    }
+        //    for (Button b : buttons) {
+        //        b.setOnClickListener(this);
+        //    }
     }
     //TODO: Add sliding menu from side for advanced operations
     //TODO: Improve overall gui
@@ -80,48 +85,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void operatorInput(String input) {
         calculator.receiveOperator(input);
-        renderElements();
     }
 
     private void numberInput(String input) {
         calculator.receiveNumber(input);
-        renderElements();
     }
 
     private void equalsPressed() {
         TextView display = findViewById(R.id.txt_display);
         display.setText(calculator.calculate());
     }
-    /* @Override
-    public void onClick(View v) {
 
-        if (numbers.contains(v.getId())) {
-            numberInput(buttons.get(v.getId()));
-        }
-        else if (operations.contains(v.getId())){
-            operatorInput(buttons.get(v.getId()));
-        }
-        else if (buttons.get(v.getId()).equals("C")) {
-            calculator.clear();
-        }
-        else if (buttons.get(v.getId()).equals("CE")) {
-            calculator.clearEntry();
-        }
-        else if (buttons.get(v.getId()).equals("=")) {
-            equalsPressed();
-        }
-        else if (buttons.get(v.getId()).equals(".")) {
-            calculator.receiveDot();
-        }
-        else if (buttons.get(v.getId()).equals("+/-")) {
-            calculator.receiveNegative();
-        }
-        else if (buttons.get(v.getId()).equals("<-")) {
-            calculator.deleteLast();
-        }
-   */
     @Override
     public void onClick(View v) {
+        if(v != null) {
+            Button click = (Button) v;
+            if (numbers.contains(buttons.get(click))) {
+                numberInput(buttons.get(click));
+            } else if (operations.containsKey(buttons.get(click))) {
+                operatorInput(operations.get(buttons.get(click)));
+            } else if (buttons.get(click).equals("C")) {
+                calculator.clear();
+            } else if (buttons.get(click).equals("CE")) {
+                calculator.clearEntry();
+            } else if (buttons.get(click).equals("equals")) {
+                equalsPressed();
+            } else if (buttons.get(click).equals("dot")) {
+                calculator.receiveDot();
+            } else if (buttons.get(click).equals("PlusMinus")) {
+                calculator.receiveNegative();
+            } else if (buttons.get(click).equals("back")) {
+                calculator.deleteLast();
+            }
+            renderElements();
+        }
+    }
+
+    /*public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_0:
                 numberInput("0");
@@ -213,5 +213,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 renderElements();
                 break;
         }
-    }
+    }*/
 }
+

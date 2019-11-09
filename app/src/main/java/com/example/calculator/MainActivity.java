@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         put("plus","+");
         put("minus","-");
         put("exponent","^");
+        put("dot",".");
     }};
     String[] str_buttons = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "times", "divide", "plus", "minus", "exponent", "C", "CE", "back", "dot", "PlusMinus", "equals"};
 
@@ -70,9 +71,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 calculator.clearEntry();
             } else if (buttons.get(click).equals("equals")) {
                 equalsPressed();
-            } else if (buttons.get(click).equals("dot")) {
+            }/* else if (buttons.get(click).equals("dot")) {
                 calculator.receiveDot();
-            } else if (buttons.get(click).equals("PlusMinus")) {
+            }*/ else if (buttons.get(click).equals("PlusMinus")) {
                 calculator.receiveNegative();
             } else if (buttons.get(click).equals("back")) {
                 calculator.deleteLast();

@@ -39,12 +39,6 @@ public class Calculator {
         }
     }
 
-    public void receiveExponent() {
-        if (!StringUtil.isOperator(stagingArea)) {
-            stagingArea += "^";
-        }
-    }
-
     public void receiveOperator(String operator) {
         if (StringUtil.isOperator(stagingArea)) {
             stagingArea = operator;
@@ -85,7 +79,6 @@ public class Calculator {
         if (stagingArea.equals("") || StringUtil.isOperator(stagingArea)) {
             return outputDisplay();
         }
-
         commitStagingArea();
         stagingArea = arithmeticHandler.calculateAndEmptyContents(expression);
         resetStagingArea = true;
@@ -96,12 +89,11 @@ public class Calculator {
 
 
     private void commitStagingArea(String input) {
-        if (stagingArea.equals("")) {
-            return;
+        if (input != null && !input.isEmpty()) {
+            expression.add(stagingArea);
+            stagingArea = input;
         }
-
-        expression.add(stagingArea);
-        stagingArea = input;
+        return;
     }
 
     private void commitStagingArea() {

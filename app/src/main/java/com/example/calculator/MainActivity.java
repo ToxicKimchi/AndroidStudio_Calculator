@@ -1,6 +1,7 @@
 package com.example.calculator;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.Pair;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     Calculator calculator;
@@ -19,32 +24,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         calculator = new Calculator();
 
-        ArrayList<Button> buttons = new ArrayList<>();
-        buttons.add((Button) findViewById(R.id.btn_0));
-        buttons.add((Button) findViewById(R.id.btn_1));
-        buttons.add((Button) findViewById(R.id.btn_2));
-        buttons.add((Button) findViewById(R.id.btn_3));
-        buttons.add((Button) findViewById(R.id.btn_4));
-        buttons.add((Button) findViewById(R.id.btn_5));
-        buttons.add((Button) findViewById(R.id.btn_6));
-        buttons.add((Button) findViewById(R.id.btn_7));
-        buttons.add((Button) findViewById(R.id.btn_8));
-        buttons.add((Button) findViewById(R.id.btn_9));
-        buttons.add((Button) findViewById(R.id.btn_plus));
-        buttons.add((Button) findViewById(R.id.btn_minus));
-        buttons.add((Button) findViewById(R.id.btn_times));
-        buttons.add((Button) findViewById(R.id.btn_divide));
-        buttons.add((Button) findViewById(R.id.btn_equals));
-        buttons.add((Button) findViewById(R.id.btn_C));
-        buttons.add((Button) findViewById(R.id.btn_CE));
-        buttons.add((Button) findViewById(R.id.btn_back));
-        buttons.add((Button) findViewById(R.id.btn_dot));
-        buttons.add((Button) findViewById(R.id.btn_exponent));
-        buttons.add((Button) findViewById(R.id.btn_PlusMinus));
+        Map<Button, String> buttons = new HashMap<>();
+       // ArrayList<Button> buttons = new ArrayList<>();
+        buttons.put((Button) findViewById(R.id.btn_0),("0"));
+        buttons.put((Button) findViewById(R.id.btn_1),("0"));
+        buttons.put((Button) findViewById(R.id.btn_2),("0"));
+        buttons.put((Button) findViewById(R.id.btn_3),("0"));
+        buttons.put((Button) findViewById(R.id.btn_4),("0"));
+        buttons.put((Button) findViewById(R.id.btn_5),("0"));
+        buttons.put((Button) findViewById(R.id.btn_6),("0"));
+        buttons.put((Button) findViewById(R.id.btn_7),("0"));
+        buttons.put((Button) findViewById(R.id.btn_8),("0"));
+        buttons.put((Button) findViewById(R.id.btn_9),("0"));
+        buttons.put((Button) findViewById(R.id.btn_plus),("0"));
+        buttons.put((Button) findViewById(R.id.btn_minus),("0"));
+        buttons.put((Button) findViewById(R.id.btn_times),("0"));
+        buttons.put((Button) findViewById(R.id.btn_divide),("0"));
+        buttons.put((Button) findViewById(R.id.btn_equals),("0"));
+        buttons.put((Button) findViewById(R.id.btn_C),("0"));
+        buttons.put((Button) findViewById(R.id.btn_CE),("0"));
+        buttons.put((Button) findViewById(R.id.btn_back),("0"));
+        buttons.put((Button) findViewById(R.id.btn_dot),("0"));
+        buttons.put((Button) findViewById(R.id.btn_exponent),("0"));
+        buttons.put((Button) findViewById(R.id.btn_PlusMinus),("0"));
 
-        for (Button b : buttons) {
+        for (Map.Entry<Button, String> entry : buttons.entrySet()) {
+            Button b = (entry.getKey());
             b.setOnClickListener(this);
         }
+    //    for (Button b : buttons) {
+    //        b.setOnClickListener(this);
+    //    }
     }
     //TODO: Add sliding menu from side for advanced operations
     //TODO: Improve overall gui

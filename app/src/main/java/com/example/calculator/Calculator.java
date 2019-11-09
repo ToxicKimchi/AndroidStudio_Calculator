@@ -74,7 +74,7 @@ public class Calculator {
         String output = "";
 
         for (String item : expression) {
-            output += item + " ";
+            output += item;
         }
 
         output += stagingArea;

@@ -1,6 +1,7 @@
 package com.example.calculator;
 
 import com.example.calculator.operations.AddSubtractOperation;
+import com.example.calculator.operations.ExponentOperation;
 import com.example.calculator.operations.MultiInputOperation;
 import com.example.calculator.operations.MultiplyDivideOperation;
 import com.example.calculator.operations.Operation;
@@ -20,6 +21,7 @@ public class ArithmeticHandler {
         this.contents = contents;
 
         Operation[] operations = new Operation[]{
+                new ExponentOperation(),
                 new MultiplyDivideOperation(),
                 new AddSubtractOperation()
         };
@@ -57,14 +59,23 @@ public class ArithmeticHandler {
         for (int i = 0; i < contents.size(); i++) {
 
             String result = contents.get(i);
-            if (result.equals(searchTerms[0])
-                    || result.equals(searchTerms[1])) {
+            if (matchesAny(searchTerms, result)) {
                 return i;
             }
         }
 
         //should never occur since we validate that a + or - exists before running
         return -1;
+    }
+
+    private boolean matchesAny(String[] searchTerms, String word) {
+        for (String s : searchTerms) {
+            if (word.equals(s)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     //receives index in array and processes the value before and after index

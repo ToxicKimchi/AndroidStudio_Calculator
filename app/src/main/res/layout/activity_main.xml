@@ -9,7 +9,7 @@
 
 
     <Button
-        android:id="@+id/btn_exponent"
+        android:id="@+id/btn_exponent2"
         android:layout_width="90dp"
         android:layout_height="0dp"
         android:background="@color/colorPrimary"
@@ -19,25 +19,25 @@
         android:textColorHint="@color/colorAccent"
         android:textColorLink="@color/colorAccent"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_root"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_exponent"
         app:layout_constraintEnd_toStartOf="@+id/btn_minus4"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_root"
-        app:layout_constraintTop_toTopOf="@+id/btn_root" />
+        app:layout_constraintStart_toEndOf="@+id/btn_exponent"
+        app:layout_constraintTop_toTopOf="@+id/btn_exponent" />
 
     <Button
-        android:id="@+id/btn_root"
+        android:id="@+id/btn_exponent"
         android:layout_width="90dp"
         android:layout_height="0dp"
         android:background="@color/colorPrimary"
-        android:text="\/-"
+        android:text="^"
         android:textColor="@color/colorAccent"
         android:textColorHighlight="@color/colorPrimaryDark"
         android:textColorHint="@color/colorAccent"
         android:textColorLink="@color/colorAccent"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/btn_percent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_exponent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_exponent2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btn_percent"
         app:layout_constraintTop_toTopOf="@+id/btn_percent" />
@@ -53,11 +53,11 @@
         android:textColorHint="@color/colorAccent"
         android:textColorLink="@color/colorAccent"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_exponent"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_exponent2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_exponent"
-        app:layout_constraintTop_toTopOf="@+id/btn_exponent" />
+        app:layout_constraintStart_toEndOf="@+id/btn_exponent2"
+        app:layout_constraintTop_toTopOf="@+id/btn_exponent2" />
 
     <Button
         android:id="@+id/btn_percent"
@@ -72,7 +72,7 @@
         android:textColorLink="@color/colorAccent"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/btn_CE"
-        app:layout_constraintEnd_toStartOf="@+id/btn_root"
+        app:layout_constraintEnd_toStartOf="@+id/btn_exponent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
@@ -429,7 +429,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="305dp" />
+        app:layout_constraintGuide_begin="251dp" />
 
     <TextView
         android:id="@+id/txt_display"

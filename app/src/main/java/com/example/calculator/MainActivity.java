@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttons.add((Button) findViewById(R.id.btn_CE));
         buttons.add((Button) findViewById(R.id.btn_back));
         buttons.add((Button) findViewById(R.id.btn_dot));
+        buttons.add((Button) findViewById(R.id.btn_exponent2));
         buttons.add((Button) findViewById(R.id.btn_exponent));
         buttons.add((Button) findViewById(R.id.btn_PlusMinus));
 
@@ -156,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btn_exponent:
-                calculator.receiveExponent();
+                calculator.receiveOperator("^");
                 renderElements();
                 break;
 

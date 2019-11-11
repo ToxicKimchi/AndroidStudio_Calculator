@@ -3,7 +3,7 @@ package com.example.calculator.operations;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class MultiplyDivideOperation extends Operation {
+public class MultiplyDivideOperation extends MultiInputOperation {
     @Override
     public String[] setOperators() {
         return new String[]{"*", "/"};

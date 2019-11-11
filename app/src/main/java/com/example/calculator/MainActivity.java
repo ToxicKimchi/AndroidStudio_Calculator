@@ -22,9 +22,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         put("divide","/");
         put("plus","+");
         put("minus","-");
-        put("exponent","^");
+        put("exponent","^2");
+        put("exponent2","^");
     }};
-    String[] str_buttons = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "times", "divide", "plus", "minus", "exponent", "C", "CE", "back", "dot", "PlusMinus", "equals"};
+    String[] str_buttons = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "times", "divide", "plus", "minus", "exponent", "exponent2", "C", "CE", "back", "dot", "PlusMinus", "equals"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

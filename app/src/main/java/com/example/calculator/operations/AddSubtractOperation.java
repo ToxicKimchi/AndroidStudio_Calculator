@@ -2,7 +2,7 @@ package com.example.calculator.operations;
 
 import java.math.BigDecimal;
 
-public class AddSubtractOperation extends MultiInputOperation {
+public class AddSubtractOperation extends Operation {
 
     @Override
     public String[] setOperators() {
